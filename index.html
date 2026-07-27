@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Seed → Map Tools</title>
+<style>
+body {
+font-family: system-ui, -apple-system, sans-serif;
+max-width: 600px;
+margin: 40px auto;
+padding: 0 20px;
+background: #0f172a;
+color: #e2e8f0;
+}
+h1 { font-size: 1.8rem; margin-bottom: 8px; }
+p { color: #94a3b8; margin-bottom: 24px; }
+input {
+width: 100%;
+padding: 14px 16px;
+font-size: 1.1rem;
+border: 2px solid #334155;
+border-radius: 10px;
+background: #1e293b;
+color: white;
+box-sizing: border-box;
+}
+input:focus {
+outline: none;
+border-color: #3b82f6;
+}
+.buttons {
+display: grid;
+gap: 12px;
+margin-top: 24px;
+}
+a.button {
+display: block;
+padding: 16px;
+background: #1e293b;
+border: 1px solid #334155;
+border-radius: 10px;
+color: #e2e8f0;
+text-decoration: none;
+font-weight: 500;
+text-align: center;
+transition: 0.15s;
+}
+a.button:hover {
+background: #334155;
+border-color: #3b82f6;
+}
+a.button.primary {
+background: #2563eb;
+border-color: #2563eb;
+color: white;
+}
+a.button.primary:hover {
+background: #1d4ed8;
+}
+.note {
+margin-top: 30px;
+font-size: 0.9rem;
+color: #64748b;
+}
+</style>
+</head>
+<body>
+<h1>Minecraft Seed → Map Tools</h1>
+<p>Paste any seed and jump straight into the best seed map tools.</p>
+
+<input type="text" id="seed" placeholder="Enter seed (e.g. 7 or -123456789)" autocomplete="off">
+
+<div class="buttons" id="links">
+<!-- Links will appear here -->
+</div>
+
+<p class="note">
+Works with both Java and Bedrock. Links open in a new tab with your seed already loaded.
+</p>
+
+<script>
+const input = document.getElementById('seed');
+const linksDiv = document.getElementById('links');
+
+function updateLinks() {
+const seed = input.value.trim();
+if (!seed) {
+linksDiv.innerHTML = '';
+return;
+}
+
+// Encode the seed properly for URLs
+const encoded = encodeURIComponent(seed);
+
+linksDiv.innerHTML = `
+<a class="button primary" href="https://www.chunkbase.com/apps/seed-map#seed=${encoded}" target="_blank">
+Open in Chunkbase (Most Popular)
+</a>
+<a class="button" href="https://www.seeds.gg/?seed=${encoded}" target="_blank">
+Open in Seeds.gg
+</a>
+<a class="button" href="https://seedlander.com/map/?seed=${encoded}" target="_blank">
+Open in SeedLander
+</a>
+<a class="button" href="https://mcseedview.com/#seed=${encoded}" target="_blank">
+Open in MC Seed View
+</a>
+`;
+}
+
+input.addEventListener('input', updateLinks);
+// Also update when the page loads if there's already text
+updateLinks();
+</script>
+</body>
+</html>
